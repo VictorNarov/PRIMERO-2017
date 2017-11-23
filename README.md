@@ -1,6 +1,6 @@
 
-# FP-2017
-Bienvenidos Ingenieros con futuro
+# Apuntes y ejercicios de FP
+Bienvenidos Ingenieros con futuro, cuando subáis algún ejercicio, añadid un nombre descriptivo entre parentesis, que hay muchos con el mismo número. Lo mismo si queréis subir una forma diferente de hacerlo, no hace falta sobreescribir el anterios.
 
 # USO BÁSICO DE GIT
 
