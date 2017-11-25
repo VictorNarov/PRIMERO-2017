@@ -4,8 +4,8 @@ using namespace std;
 
 class merges{
     int uno[15], dos[15], fus[30];
-    int numuno;//Número de elementos almacenados en la tabla uno
-    int numdos;//Número de elementos almacenados en la tabla dos
+    int numuno;//NÃºmero de elementos almacenados en la tabla uno
+    int numdos;//NÃºmero de elementos almacenados en la tabla dos
 
 public:
     void cargar();
