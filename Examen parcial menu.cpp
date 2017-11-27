@@ -26,7 +26,7 @@ void Datos::Cargar()
         do{
             cout<< "Introduce el valor ["<<i<<"]["<<j<<"] ->";
             cin >> Valores[i][j];
-         if(Valores[i][j] < -20.5 || Valores[i][j] > 60.5) cout<< "\nError: el valor debe estar en el rango [-20.5, 60.5] ";
+         if(Valores[i][j] < -20.5 || Valores[i][j] > 60.5) cout<< "\nError: el valor debe estar en el rango [-20.5, 60.5]\n";
         }while(Valores[i][j] < -20.5 || Valores[i][j] > 60.5);
 
     }
@@ -84,9 +84,9 @@ int main()
 
 
 do{
-    int opcion = 0;
-    continuar = 'n';
+    int opcion;
     system("cls");
+
     cout << "\tELIGE OPCION \n1) Rellenar tabla \n2) Mostrar tabla\n3) Mostrar minimo \n4) Buscar en la tabla\n5) Salir \n\nOpcion -> ";
     cin >> opcion;
 
