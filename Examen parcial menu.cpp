@@ -86,7 +86,7 @@ int main()
 do{
     int opcion = 0;
     continuar = 'n';
-
+    system("cls");
     cout << "\tELIGE OPCION \n1) Rellenar tabla \n2) Mostrar tabla\n3) Mostrar minimo \n4) Buscar en la tabla\n5) Salir \n\nOpcion -> ";
     cin >> opcion;
 
@@ -119,7 +119,7 @@ do{
     }
     cout << "\nVolver al menu? (s/n) -> ";
     cin >> continuar;
-}while(continuar == 's' && continuar == 'S');
+}while(continuar == 's' || continuar == 'S');
 
 return 0;
 }
