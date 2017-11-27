@@ -31,7 +31,6 @@ do{
 }
 
 void TablasMultiplicar::MostrarTablas(){
-int NumTablas = TablaFin - TablaIni;
 int i, j;
 
 for(i=0; i<=10; i++){
