@@ -1,9 +1,4 @@
-/*
-    Víctor Manuel Rodríguez Navarro
-    49278702Y
-    MODELO 2B
 
-*/
 
 #include <iostream>
 #define F 5
