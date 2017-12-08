@@ -88,7 +88,7 @@ int vector::comparar(){
 
     if(iguales==true){
 
-        cout << "You was input the sames values in the tables";
+        cout << "You have input the sames values in the tables";
 
     }else if(numero==true){
 
