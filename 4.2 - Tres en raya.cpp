@@ -1,6 +1,7 @@
 /*
 
-    Hecho por: Vik
+    Autor: Vik
+    Fecha: 08/12/17
 
 */
 
@@ -18,7 +19,7 @@ char Tablero[3][3];
 public:
     TicTacToe();
     void LimpiarTablero();
-    void Pintar(int turno);
+    void Pintar(int turno);//Parametro opcional, solo por estetica
     bool PonerFicha(char ficha, int fila, int columna);
     bool ComprobarFila(char ficha, int fila);
     bool ComprobarColumna(char ficha, int columna);
