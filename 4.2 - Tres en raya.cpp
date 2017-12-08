@@ -1,3 +1,9 @@
+/*
+
+    Hecho por: Vik
+
+*/
+
 #include <iostream>
 #include <cstdlib>
 
