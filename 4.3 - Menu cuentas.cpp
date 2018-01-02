@@ -20,7 +20,9 @@ public:
     Cuenta(int pNo, float pSal);
     bool ActualizarSaldo(int pSal);
     void ActualizarBloqueo(bool pBloq);
-    void ActualizarNoCuenta(int pNoCuenta) {NoCuenta = pNoCuenta;}
+    void ActualizarNoCuenta(int pNoCuenta) {NoCuenta = pNoCuenta;}/* Se ha añadido este metodo para poder crear
+																	una cuenta sin llamar al constructor con un 
+																	objeto ya creado (En el case 1)*/ 
     float DameSaldo()  { return Saldo; }
     int DameNoCuenta() { return NoCuenta; }
     bool EstaBloqueada() { return Bloqueada; }
@@ -117,7 +119,7 @@ int main()
             {
                 cout << "\nIntroduce el saldo -> ";
                 cin >> SaldoTemp;
-
+				//El objeto de indice nCuentas es el ultimo en el vector
                 DatosCuentas[nCuentas].ActualizarNoCuenta(noCuentaTemp);
                 DatosCuentas[nCuentas].ActualizarSaldo(SaldoTemp);
 

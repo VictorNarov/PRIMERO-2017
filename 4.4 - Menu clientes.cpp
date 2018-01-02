@@ -13,7 +13,7 @@ typedef char Cadena[50];
 
 
 
-class Cuenta //Cambiado a struct para poder acceder a sus campos
+class Cuenta 
 {
     float Saldo;
     int NoCuenta;
@@ -284,7 +284,7 @@ int main()
         switch(Menu())
         {
         case 1:
-            {
+            {//Llaves para que las variables locales se destruyan
                 system("cls");
                 Cadena NombreNuevo;
                 Cadena DireccionNuevo;
