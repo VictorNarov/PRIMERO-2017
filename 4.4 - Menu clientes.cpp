@@ -1,3 +1,7 @@
+/*
+	Autor: Vik
+	Fecha: 27/12/17
+*/
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
