@@ -97,7 +97,6 @@ int main()
 
     do
     {
-    int opcion;
     system("cls");
 
     switch(MenuCuentas())
