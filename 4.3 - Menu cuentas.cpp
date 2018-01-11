@@ -1,6 +1,6 @@
 /*
 	Autor: Vik
-	Fecha: 01/01/18
+	Fecha: 27/12/17
 */
 #include <iostream>
 #include <cstdlib>
@@ -20,9 +20,6 @@ public:
     Cuenta(int pNo, float pSal);
     bool ActualizarSaldo(int pSal);
     void ActualizarBloqueo(bool pBloq);
-    void ActualizarNoCuenta(int pNoCuenta) {NoCuenta = pNoCuenta;}/* Se ha añadido este metodo para poder crear
-																	una cuenta sin llamar al constructor con un 
-																	objeto ya creado (En el case 1)*/ 
     float DameSaldo()  { return Saldo; }
     int DameNoCuenta() { return NoCuenta; }
     bool EstaBloqueada() { return Bloqueada; }
@@ -78,6 +75,7 @@ int BuscarCuenta(Cuenta Ctas[MAX_CUENTAS], int NCuentas, int NoCuenta)
 
 int MenuCuentas()
 {
+    int opcion;
     cout <<"\tMenu Gestion de Cuentas" <<
                 "\n 1 Anadir una cuenta a un cliente"<<
                 "\n 2 Mostrar las cuentas del ciente"<<
@@ -86,6 +84,8 @@ int MenuCuentas()
                 "\n 5 Modificar Estado de una cuenta"<<
                 "\n 6 Salir"<<
                 "\n\nElige Opcion: ";
+    cin >> opcion;
+    return opcion;
 }
 
 int main()
@@ -99,10 +99,8 @@ int main()
     {
     int opcion;
     system("cls");
-    MenuCuentas();
-    cin >> opcion;
 
-    switch(opcion)
+    switch(MenuCuentas())
     {
     case 1:
         {//Llaves para que las variables locales se destruyan
@@ -119,10 +117,10 @@ int main()
             {
                 cout << "\nIntroduce el saldo -> ";
                 cin >> SaldoTemp;
+                //Usando el constructor parametrizado:
+                Cuenta Temp(noCuentaTemp,SaldoTemp);//Crea una con los datos ingresados
 				//El objeto de indice nCuentas es el ultimo en el vector
-                DatosCuentas[nCuentas].ActualizarNoCuenta(noCuentaTemp);
-                DatosCuentas[nCuentas].ActualizarSaldo(SaldoTemp);
-
+                DatosCuentas[nCuentas]=Temp;
 
                 nCuentas++;
 

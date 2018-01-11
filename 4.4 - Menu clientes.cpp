@@ -1,6 +1,6 @@
 /*
 	Autor: Vik
-	Fecha: 27/12/17
+	Fecha: 01/01/18
 */
 #include <iostream>
 #include <cstdlib>
@@ -13,7 +13,7 @@ typedef char Cadena[50];
 
 
 
-class Cuenta 
+class Cuenta
 {
     float Saldo;
     int NoCuenta;
@@ -24,7 +24,6 @@ public:
     Cuenta(int pNo, float pSal);
     bool ActualizarSaldo(int pSal);
     void ActualizarBloqueo(bool pBloq);
-    void ActualizarNoCuenta(int pNoCuenta) {NoCuenta = pNoCuenta;}
     float DameSaldo()  { return Saldo; }
     int DameNoCuenta() { return NoCuenta; }
     bool EstaBloqueada() { return Bloqueada; }
@@ -398,7 +397,7 @@ int main()
                             cin >> noCuentaTemp;
                             cout << "\nIntroduce el saldo -> ";
                             cin >> SaldoTemp;
-
+                            //Usando el constructor parametrizado:
                             Cuenta Temp(noCuentaTemp, SaldoTemp); //Crea una cuenta con los datos recogidos
                             if(Datos[busqueda].CrearCuenta(Temp))//Intenta añadir la cuenta al vector
                                 cout << "\nCuenta creada con exito!";//Los mensajes de error se controlan en el metodo
