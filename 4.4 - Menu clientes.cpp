@@ -12,7 +12,6 @@ typedef char Cadena[50];
 #define MAX_CLIENTES 100
 
 
-
 class Cuenta
 {
     float Saldo;
@@ -120,7 +119,7 @@ int Cliente::BuscarCuentaCliente(int pNoCuenta)
 
 }
 
-bool Cliente::CrearCuenta(Cuenta pCu)
+bool Cliente::CrearCuenta(Cuenta pCu)//Mensajes de error controlados desde el metodo
 {
     bool ok;
     if(noCuentas >= MAX_CUENTAS)
@@ -151,7 +150,7 @@ bool Cliente::ActualizarCuenta(Cuenta pCu)
     bool ok;
     int busqueda = BuscarCuentaCliente(pCu.DameNoCuenta());
 
-    if(busqueda == -1)
+    if(busqueda == -1)//Si no existe la cuenta
         ok  = false;
     else//La llamada a este metodo se controla desde el main
     { //Edita la cuenta encontrada con los valores de la cuenta pasada por parametro
@@ -485,7 +484,7 @@ int main()
                                 cout << "\nDesea bloquear la cuenta (1) o desbloquearla (2) -> ";
                                 cin >> respuesta;
 
-                                switch(respuesta)
+                                switch(respuesta)//Uso switch pq permite controlar errores con default mas facilmente
                                 {
                                 case '1':
                                     bloquear = true;
@@ -510,7 +509,7 @@ int main()
 
                             }
                         }
-                        else
+                        else //(busquedaCuenta == -1)
                             cout << "\nError: la cuenta no existe";
                         cout<<endl;
                         system("pause");
