@@ -1,0 +1,194 @@
+//Autor: Fran Beltrán
+//Modelo de Prueba B
+//***************************************************
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+typedef char cadena[50];
+
+class CocheAlquiler
+{
+    cadena Conductor;  //Nombre Conductor
+    float KmHechos;     //Kilometros recorridos en un dia
+    float Tiempo;      //Tiempo alquilado utilizado en un dia
+    float Ganancia;    //Ganancia del Alquierler
+    float Consumo;     //Kilowatios consumidos
+public:
+    CocheAlquiler();
+    void getConductor(cadena pNombre);
+    float getKilometros();
+    float getGanancia();
+    float getTiempo();
+    float getComsumo();
+    bool Alquilar(cadena pConduc, float pTiempoMaximo, float KmMaximo, float &pPrecio);
+    void Mostrar();
+};
+
+CocheAlquiler::CocheAlquiler()
+{
+    strcpy(Conductor, "");
+    KmHechos=0.0;
+    Tiempo=0.0;
+    Ganancia=0.0;
+    Consumo=0.0;
+}
+
+void CocheAlquiler::getConductor(cadena pNombre)
+{
+    strcpy(pNombre, Conductor);
+}
+
+float CocheAlquiler::getKilometros()
+{
+    return KmHechos;
+}
+float CocheAlquiler::getTiempo()
+{
+    return Tiempo;
+}
+
+float CocheAlquiler::getGanancia()
+{
+    return Ganancia;
+}
+
+float CocheAlquiler::getComsumo()
+{
+    return Consumo;
+}
+
+bool CocheAlquiler::Alquilar(cadena pConduc, float pTiempoMaximo, float KmMaximo, float &pPrecio)
+{
+    bool resultado=false; //variable auxiliar para devolver si el coche es o no alquilado
+    float Consumo_alquiler, Consumo_medio=15.5;
+
+    if ((KmMaximo+KmHechos)<500 && (pTiempoMaximo+Tiempo<24))
+        resultado = true;
+
+    Consumo_alquiler = (KmMaximo*Consumo_medio)/100;
+
+    if(resultado)
+    {
+        strcpy(Conductor, pConduc);
+        KmHechos += KmMaximo;
+        Tiempo += pTiempoMaximo;
+        Consumo += Consumo_alquiler;
+        pPrecio = (5*pTiempoMaximo) + (0.25*Consumo_alquiler);
+        Ganancia += pPrecio;
+    }
+
+    return resultado;
+}
+
+void CocheAlquiler::Mostrar()
+{
+    cout <<Conductor<<" "<<KmHechos<<"Km "<<Tiempo<<"h "<<Ganancia<<" euros ganados "<<Consumo<<"kw"<<endl;
+}
+
+int BuscarCocheAlquiler(CocheAlquiler pFlota[50], int NCocheAquilers)
+{
+    float Minimo;
+    int posicion;
+    int i=0;
+
+    // Establecemos como minimo, el primer vehículo.
+    Minimo = pFlota[i].getKilometros();
+    posicion = i;
+
+    // Después realizo el recorrido de toda la flota menos el Primero
+    for (i=1; i<NCocheAquilers; i++)
+    {
+        float Coche_Siguiente=pFlota[i].getKilometros();
+
+        if(Coche_Siguiente<Minimo)
+        {
+            Minimo = Coche_Siguiente;
+            posicion = i;
+        }
+    }
+
+    return posicion;
+}
+
+int main()
+{
+    CocheAlquiler Flota[50];
+    int NCoches=0;
+    int Pos;
+    int opcion;
+    float Gana, Dista,consu;
+    Gana=0;
+    Dista=0;
+    consu=0;
+    do
+    {
+        cout<<"\n1.- Añadir un Coche de Alquiler a la flota."
+            <<"\n2.- Alquilar un Coche."
+            <<"\n3.- Listado de Coches."
+            <<"\n0.- Salir."
+            <<"\n\nElige Opcion: ";
+        cin>>opcion;
+        switch(opcion)
+        {
+            case 1: if (NCoches<50)
+                    {
+                        CocheAlquiler C;
+                        Flota[NCoches]=C;
+                        NCoches++;
+                        cout << "Coche de Alquiler añadido correctamente.";
+                    }
+                    else cout<<"La flota está completa.";
+                    break;
+            case 2:
+                {
+                    cadena Nombre_conductor;
+                    bool Viaje;
+                    float Precio_viaje, Tiempo;
+
+                    Pos = BuscarCocheAlquiler(Flota, NCoches);
+
+                    cout << "Introduzca el nombre del Conductor: " << endl;
+                    cin >> Nombre_conductor;
+
+                    cout << "Introduzca el Tiempo del alquiler: " << endl;
+                    cin >> Tiempo;
+
+                    cout << "Introduzca la Distancia a Realizar: " << endl;
+                    cin >> Dista;
+
+                    Viaje = Flota[Pos].Alquilar(Nombre_conductor, Tiempo, Dista, Precio_viaje);
+
+                    if(Viaje)
+                    {
+                        cout << "Nombre: " << Nombre_conductor
+                             << "\nPrecio: " << Precio_viaje << endl;
+                    }
+                    else
+                        cout << "ERROR. No se ha podido realizar el alquiler." << endl;
+                }
+                    break;
+            case 3:
+                {
+                    float Kms_totales=0;
+                    Gana=0;
+
+                    cout << "\nLista de Alquileres: " << endl;
+                    for(int i=0; i<NCoches; i++)
+                    {
+                        Flota[i].Mostrar();
+                        Kms_totales += Flota[i].getKilometros();
+                        Gana += Flota[i].getGanancia();
+                        consu += Flota[i].getComsumo();
+                    }
+
+                    cout << "Kilometros Totales: " << Kms_totales
+                         << "\nGanancia Total: " << Gana
+                         << "\nConsumo Total: "<< consu << endl;
+                }
+                    break;
+        }
+    } while (opcion!=0);
+
+    return 0;
+}
