@@ -1,7 +1,7 @@
+//Autor: Fran Beltrán
+//Modelo de Prueba A
 #include <iostream>
 #include <cstring>
-
-// Nombre: Francisco Jesús Beltrán Moreno
 
 using namespace std;
 
