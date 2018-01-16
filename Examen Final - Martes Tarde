@@ -1,0 +1,254 @@
+//Examen Parcial Fundamentos de Programación//
+//Autor: Sergio Sánchez
+//Fecha: 16/01/18 Martes 19:00
+
+///////////////////////////////////////////
+///////SOLO HAY QUE IMPLEMENTAR: 
+/////// - void tprod::vender(int cantidad)
+/////// - void almacen::vertabla ()
+/////// - opcion B del menú
+///////////////////////////////////////////
+
+#include <iostream>
+#include <string.h>
+#include <windows.h>
+using namespace std;
+
+
+typedef char cad[20];
+class tprod {
+    cad nombre;
+    float precio;
+    int stock;
+public:
+    tprod();
+    /*Un constructor para esta clase que ponga en el nombre
+    “NO HAY PRODUCTO”, en el precio un 0, y en el stock un 0.*/
+    void leenombre (cad nom);
+    /*Devuelve en el parámetro nom el contenido del atributo nombre. */
+	float leeprecio ();
+	/*Devuelve el contenido del atributo precio.*/
+    void leestock(int &st);
+    /*Devuelve en el parámetro st el contenido del atributo stock.*/
+    void cambiarnombre(cad nom);
+    /*Recibe nom como parámetro y lo copia en el atributo nombre.*/
+    void cambiarprecio(float prec);
+    /*Recibe prec como parámetro y lo copia en el atributo precio.*/
+    void cambiarstock(int stoc);
+    /*Recibe stoc como parámetro y lo copia en el atributo stock. */
+    void vender(int cantidad);
+    /*Simula la venta del producto, quitando del stock la cantidad
+    pasada como parámetro, además mostrará por pantalla el precio
+    a cobrar que será el producto del precio unitario por la cantidad
+    vendida. Si no hubiera en el stock suficiente cantidad mostrará
+    un mensaje por pantalla expresando dicha circunstancia no
+    realizándose la venta.*/
+};
+tprod::tprod() {
+    strcpy(nombre, "NO HAY PRODUCTO");
+    precio = 0.0;
+    stock = 0;
+}
+
+void tprod::leenombre (cad nom){
+  strcpy(nom, nombre);
+}
+
+float tprod::leeprecio (){
+    return precio;
+}
+void tprod::leestock(int &st){
+    st = stock;
+}
+void tprod::cambiarnombre(cad nom){
+     strcpy(nombre,nom);
+}
+
+void tprod::cambiarprecio(float prec){
+    precio = prec;
+}
+void tprod::cambiarstock(int stoc){
+    stock = stoc;
+}
+void tprod::vender(int cantidad){
+    /* DISEÑE ESTE METODO 1 punto*/
+    float precioventa;
+    if (cantidad>stock) cout<<"Error, no hay suficiente stock";
+    else {
+            stock = stock-cantidad;
+            precioventa=precio*cantidad;
+            cout << "\n El precio total sera de: " << precioventa << " \n";
+    }
+
+}
+
+#define MAX 5
+class almacen {
+    tprod productos[MAX];   //productos almacenados
+    int nprod;   //Número de productos insertados en la tabla
+public:
+    almacen();
+    /* Crea el almacen vacio*/
+    void vaciar();
+    //Inicializa el almacen a vacío
+    int existe(cad nom);
+/* Devuelve la posición en la que se encuentra el producto, cuyo
+nombre se pasa como parámetro, dentro del almacén. Si dicho
+producto no existe devolverá -1. */
+    void verprod (int pos, tprod &prod);
+/*Método que pondrá en prod el contenido del producto que se
+encuentra en la posición pos de la tabla de productos */
+    int insertar(tprod P);
+/* Inserta el producto P, en el almacén. Si el producto existe devolverá 1
+si el almacen esta lleno devolverá 2, no insertandolo en ninguno de los
+dos casos. En caso contrario lo inserta en la tabla y devuelve 0*/
+    void vertabla ();
+/*Método que visualizará por pantalla el contenido del almacén. Cada
+producto deberá mostrarse en una línea diferente con su nombre, precio
+y stock. Si el almacén está vacío expresará esta situación por pantalla.*/
+    void vender (int pos, int cant);
+/*Método que recibiendo como parámetros pos y cantidad intentará realizar
+ la venta del producto que está en la posición pos de la tabla y una
+ cantidad cant de ese producto. */
+};
+almacen::almacen(){
+    nprod=0;
+}
+void almacen::vaciar(){
+    nprod=0;
+}
+
+int almacen::existe(cad nom){
+    int i=0, encontrado=0;
+    cad n;
+    while ( (encontrado==0) && i<nprod){
+        productos[i].leenombre(n);
+        if (strcmp(nom, n)==0)
+            encontrado=1;
+        else
+            i++;
+        }
+    if (encontrado==0)
+        i=-1;
+    return i;
+}
+
+void almacen::verprod (int pos, tprod &prod){
+    prod = productos[pos];
+}
+
+int almacen::insertar (tprod P){
+    int valor, lugar;
+    cad nom;
+    if (nprod == MAX) valor =2;
+    else {
+            P.leenombre(nom);
+            lugar= existe(nom);
+            if (lugar!= -1){
+                valor =1;
+               }
+            else {
+                productos[nprod] = P;
+                nprod++;
+                valor =0;
+                }
+        }
+    return valor;
+}
+void almacen::vertabla () {
+    /*DISEÑE ESTE METODO 1,25 puntos*/
+    cad no;
+    int stoc;
+    cout << "\n ALMACEN";
+    for (int i=0; i<nprod; i++){
+            productos[i].leenombre(no);
+            cout << "\n Nombre Producto: " << no;
+            cout << "\n Precio: " << productos[i].leeprecio();
+            productos[i].leestock(stoc);
+            cout << "\n Stock: " << stoc;
+            cout << "\n\n\n";
+    }
+}
+void almacen::vender (int pos, int cant){
+    productos[pos].vender(cant);
+}
+
+char menu () {
+    char opc;
+    system("cls");
+    cout <<"\n\n\n\n\n";
+    cout << "\t\t\t ************* MENU ******************\n";
+    cout << "\t\t\t *******A.- Visualizar la tabla. *****\n";
+    cout << "\t\t\t *******B.- Insertar un producto.*****\n";
+    cout << "\t\t\t *******C.- Vender un producto.  *****\n";
+    cout << "\t\t\t *******D.- Vaciar el almacen.   *****\n";
+    cout << "\t\t\t *******E.- Salir.               *****\n";
+    cout << "\t\t\t *************************************\n";
+    cout << "\t\t\t Pon la opcion que deseas:\n";
+    cin  >> opc;
+    return opc;
+}
+
+int main (){
+    almacen a;
+    tprod p;
+    cad nom;
+    float prec;
+    int sto, cant, pos;
+    char opcion;
+    do {
+        opcion = menu();
+        switch(opcion){
+        case 'a' :
+        case 'A' :  a.vertabla();
+                    break;
+        case 'b' :
+        case 'B' :  /* DISEÑE ESTA OPCION DEL MENU  1,25 puntos
+            Pedirá por teclado el nombre, precio y cantidad de un producto
+            para insertarlo. No lo insertará si el almacen está lleno o bien ya
+            existe un producto con ese nombre, expresando por pantalla un mensaje
+            de lo sucedido */
+                    int x;
+                    cout << "Pon el nombre del producto a insertar: ";
+                    cin >> nom;
+                    p.cambiarnombre(nom);
+                    cout << "Pon el precio del producto a insertar: ";
+                    cin >> prec;
+                    p.cambiarprecio(prec);
+                    cout << "Pon la cantidad del producto a insertar: ";
+                    cin >> sto;
+                    p.cambiarstock(sto);
+                    x=a.insertar(p);
+                    if(x==2)
+                        cout << "\n Error, almacen lleno";
+                    else {if(x==1)
+                        cout << "\n Error, ya existe ese producto";
+                    else
+                        cout << "\n Producto insertado correctamente";
+                        
+                    break;
+        case 'c' :
+        case 'C' :  cout << "Pon el nombre del producto: ";
+                    cin >> nom;
+                    pos = a.existe(nom);
+                    if (pos==-1) cout << "Ese producto NO existe en el almacen\n";
+                    else {
+                            cout << "cantidad a vender: ";
+                            cin >> cant;
+                            a.vender(pos, cant);
+                         }
+                    break;
+        case 'd' :
+        case 'D' :  a.vaciar();
+                    break;
+        case 'e' :
+        case 'E' :  cout <<"Gracias por utilizar este maravilloso programa\n";
+                    break;
+        default :  cout << "ERROR EN LA OPCION";
+        }
+    cout <<"\n";
+    system("pause");
+
+    } while ( (opcion != 'E') && (opcion != 'e'));
+    return 0;
+}
