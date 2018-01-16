@@ -149,6 +149,7 @@ int main()
     int Numero_Figuras, Cuadrante_busqueda;
     float Perimetro_figura, Area_figura;
     char Color_busqueda[10];
+    bool encontrado=false;
 
     do
     {
@@ -171,12 +172,15 @@ int main()
 
         if((Cuadrante_busqueda == 1) && (strcmp(Color_busqueda, "rojo") == 0))
         {
+            encontrado = true;
             Funcion_generica(Figuras[j], Perimetro_figura, Area_figura);
             cout << "Triangulo ";
             Figuras[j].MostrarCoord();
             cout << "Area = " << Area_figura << " y Perimetro = " << Perimetro_figura << endl;
         }
     }
-
+    if(!encontrado)
+        cout << "ERROR. No se ha encontrado ninguna figura con esas caracteristicas." << endl;
+        
     return 0;
 }
