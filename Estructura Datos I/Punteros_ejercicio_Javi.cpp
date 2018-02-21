@@ -60,8 +60,8 @@ public:
     }
 
     solucionar(float &sol1ext, float &sol2ext)  {
-        sol1=(-b+sqrt(b*b-4*a*c))/(2*b);
-        sol2=(-b-sqrt(b*b-4*a*c))/(2*b);
+        sol1ext=sol1=(-b+sqrt(b*b-4*a*c))/(2*b);
+        sol2ext=sol2=(-b-sqrt(b*b-4*a*c))/(2*b);
     }
 
     mostrar()   {
