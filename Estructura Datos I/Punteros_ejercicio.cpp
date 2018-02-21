@@ -41,7 +41,7 @@ int main()
     //2. Reserva de memoria dinamica heap
     pReal = new float;
     pEntero = new int;
-    pProveedor = new Proveedor;
+    pProveedor = new Proveedor();
 
     //3. Tabla dinamica 100 clientes
     Cliente *tablaClientes = new Cliente[100];
