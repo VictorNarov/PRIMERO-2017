@@ -36,7 +36,7 @@ int main()
     float *pReal=NULL;
     int *pEntero=NULL;
     Proveedor *pProveedor=NULL;
-    //Polinomio *pPolinomio;
+    //Polinomio *pPolinomio=NULL;
 
     //2. Reserva de memoria dinamica heap
     pReal = new float;
