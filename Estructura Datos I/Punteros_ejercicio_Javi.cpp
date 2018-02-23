@@ -75,24 +75,33 @@ public:
 
 
 int main()  {
-    float *real=NULL;
+    float *real=NULL;                                       //Ejercicio 1
     int *entero=NULL;
     Proveedor *prov=NULL;
     Polinomio *pol=NULL;
 
 
-    Cliente *tclientes= new Cliente[100];
+    real= new float;                                        //Ejercicio 2
+    entero= new int;
+    prov= new Proveedor(12345678, "Pepe");
+    pol= new Polinomio;
+
+    Cliente *tclientes= new Cliente[100];                   //Ejercicio 3
 
 
-    Cliente *tpuntcli[1000];
+
+    Cliente **tpuntcli=new Cliente*[1000];                  //Ejercicio 4
     for (int i=0; i<1000; i++) tpuntcli[i]=NULL;
 
 
-    Proveedor *tpuntprov[120];
+    Proveedor **tpuntprov=new Proveedor*[120];              //Ejercicio 5
     for (int i=0; i<120; i++) tpuntprov[i]= new Proveedor;
 
 
-    delete [] tpuntcli;
+    delete [] tpuntcli;                                     //Ejercicio 6
+
+
+    for (int i=0; i<120; i++) delete [] tpuntprov[i];       //Ejercicio 7
     delete [] tpuntprov;
 
     return 0;
