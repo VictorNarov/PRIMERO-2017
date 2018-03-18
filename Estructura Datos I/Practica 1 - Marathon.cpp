@@ -15,7 +15,7 @@ Maraton::Maraton(char FicheroOrigen[], char FicheroDestino[])
     {
         fich.close();
         fich.clear();
-        fich.open(FicheroDestino, ios::out | ios::binary);
+        fichero.open(FicheroDestino, ios::out | ios::binary);
         fichero.write((char *)&numAtletas, sizeof(int)); 
     }
     else
