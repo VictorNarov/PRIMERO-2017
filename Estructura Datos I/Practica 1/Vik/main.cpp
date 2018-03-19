@@ -13,7 +13,6 @@ using namespace std;
 int main()
 {
     char p[]="huelvapro.dat", r[]="huelva.dat";
-    cadena pais;
     Maraton Huelva(p,r);
     char opcion;
 
@@ -31,46 +30,55 @@ int main()
         {
             case '1':
             {
-            CLS;
-            cadena consulta;
-            cout<<"Introduce pais a consultar (Todos: *) -> ";
-            gets(consulta);
-            Huelva.consultar(consulta);
-            break;
+                CLS;
+                cadena consulta;
+                cout<<"Introduce pais a consultar (Todos: *) -> ";
+                gets(consulta);
+                Huelva.consultar(consulta);
+                break;
             }
+
             case '2':
             {
-            CLS;
-            cadena pais, nombre, apellido;
-            int dorsal;
-            Atleta Ainsertar;
+                CLS;
+                cadena pais, nombre, apellido;
+                int dorsal;
+                Atleta Ainsertar;
 
-            cout << "Introduce dorsal -> ";
-            cin >> dorsal;
-            cin.get();
-            cout << "\nIntroduce pais ->";
-            gets(pais);
-            cout <<"\nIntroduce nombre -> ";
-            gets(nombre);
-            cout <<"\nIntroduce apellidos -> ";
-            gets(apellido);
+                cout << "Introduce dorsal -> ";
+                cin >> dorsal;
+                cin.get();
+                cout << "\nIntroduce pais ->";
+                gets(pais);
+                cout <<"\nIntroduce nombre -> ";
+                gets(nombre);
+                cout <<"\nIntroduce apellidos -> ";
+                gets(apellido);
 
-            Ainsertar.dorsal = dorsal;
-            strcpy(Ainsertar.apellidos,apellido);
-            strcpy(Ainsertar.nombre,nombre);
-            strcpy(Ainsertar.pais,pais);
+                Ainsertar.dorsal = dorsal;
+                strcpy(Ainsertar.apellidos,apellido);
+                strcpy(Ainsertar.nombre,nombre);
+                strcpy(Ainsertar.pais,pais);
 
-            Huelva.insertar(Ainsertar);
-            break;
+                Huelva.insertar(Ainsertar);
+                break;
             }
+            case '3':
+                {
+                    int dorsal;
+                    CLS;
+                    cout << "\nIntroduce dorsal a modificar -> ";
+                    cin >> dorsal;
+                    Huelva.modificar(dorsal);
+                    break;
+                }
+            case '6':
+                cout <<"\nSaliendo...";
+                break;
 
-        case '6':
-            cout <<"\nSaliendo...";
-            break;
-
-        default:
-            cout<<"\nOpcion no valida!";
-            break;
+            default:
+                cout<<"\nOpcion no valida!";
+                break;
         }
         cout << endl;
         PAUSE;

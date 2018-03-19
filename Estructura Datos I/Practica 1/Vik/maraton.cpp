@@ -140,6 +140,41 @@ void Maraton::insertar(Atleta s)
 
 void Maraton::modificar(int dor)
 {
+    Atleta vAtletas[numAtletas];
+    int i=1;//Localiza la posicion del atleta a modificar
+    bool encontrado = false;
+    fichero.seekg(sizeof(int),ios::beg);
+    Atleta ATemp;
+
+    while(!encontrado&&i<numAtletas)
+    {
+        fichero.read((char *)&ATemp,sizeof(Atleta));//Descarga de los atletas del fichero al vector
+        if(ATemp.dorsal==dor)
+            encontrado = true;
+        else
+            i++;
+
+    }
+    if(!encontrado)
+        cout << "\nError: dorsal no existe!";
+    else
+    {
+        cout << "Editando: " <<ATemp.dorsal<<" "<<ATemp.nombre<<" "<<ATemp.apellidos<<ATemp.pais<<"\n\n";
+        cout << "Introduce dorsal -> ";
+        cin >> ATemp.dorsal;
+        cin.get();
+        cout <<"\nIntroduce nombre -> ";
+        gets(ATemp.nombre);
+        cout <<"\nIntroduce apellidos -> ";
+        gets(ATemp.apellidos);
+
+        //Se podria reutilizar el codigo de insertar
+
+        fichero.seekp(sizeof(int)+(i-1)*sizeof(Atleta), ios::beg);//Situarse al comienzo del atleta a modificar
+        fichero.write((char *)&ATemp, sizeof(Atleta));
+        if(!fichero.fail())
+            cout << "\nAtleta modificado correctamente!";
+    }
 
 }
 
