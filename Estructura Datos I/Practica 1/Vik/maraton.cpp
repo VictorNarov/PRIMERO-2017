@@ -88,20 +88,24 @@ void Maraton::insertar(Atleta s)
     Atleta *vAtletas = new Atleta[numAtletas+1];
     Atleta AtletaTemp;
     fichero.seekg(sizeof(int),ios::beg);
-    bool introducido;
+    bool introducido, encontrado=false;
     int i;
+
     for(i=0; i<numAtletas; i++)
     {
 
         fichero.read((char *)&vAtletas[i],sizeof(Atleta));//Descarga de los atletas del fichero al vector
-                        for(int k=0; k<numAtletas+1; k++)
-                    cout << vAtletas[k].dorsal;
+        if(vAtletas[i].dorsal==s.dorsal)
+        {
+            encontrado = true;
+            cout << "\nError: dorsal ya existente!";
+        }
 
     }
 
     introducido = false;
 
-    while(!introducido)
+    while(!introducido&&!encontrado)
         {
             if(strcmp(strupr(vAtletas[i-1].pais),strupr(s.pais))==0)//i se queda en la ultima pos vector
                 {

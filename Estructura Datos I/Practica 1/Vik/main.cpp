@@ -14,25 +14,32 @@ int main()
 {
     char p[]="huelvapro.dat", r[]="huelva.dat";
     cadena pais;
-    Maraton uno(p,r);
-    char opcion='0';
-    while(toupper(opcion)!='s'){
+    Maraton Huelva(p,r);
+    char opcion;
 
-    opcion = getch();
-    switch(opcion)
+    do
     {
-    case '1':
+        CLS;
+        cout << "Maraton de Huelva"<<endl
+             << "------------------------------"<<endl
+             << "Atletas: "<<Huelva.getNumAtletas()<<endl
+             << "\n\t1. Consulta de inscripciones\n\t2. Inscripciones a la maraton\n\t3. Modificar una inscripcion\n\t4. Eliminar una inscripcion\n\t5. Mostrar clasificacion\n\t6. Salir\n\nIndique la opcion deseada: ";
+
+        opcion = getche();
+
+        switch(opcion)
         {
+            case '1':
+            {
             CLS;
             cadena consulta;
-            cout<<"Introduce pais a consultar";
+            cout<<"Introduce pais a consultar (Todos: *) -> ";
             gets(consulta);
-            uno.consultar(consulta);
-            PAUSE;
+            Huelva.consultar(consulta);
             break;
-        }
-    case '2':
-        {
+            }
+            case '2':
+            {
             CLS;
             cadena pais, nombre, apellido;
             int dorsal;
@@ -40,6 +47,7 @@ int main()
 
             cout << "Introduce dorsal -> ";
             cin >> dorsal;
+            cin.get();
             cout << "\nIntroduce pais ->";
             gets(pais);
             cout <<"\nIntroduce nombre -> ";
@@ -52,17 +60,22 @@ int main()
             strcpy(Ainsertar.nombre,nombre);
             strcpy(Ainsertar.pais,pais);
 
-            uno.insertar(Ainsertar);
+            Huelva.insertar(Ainsertar);
+            break;
+            }
+
+        case '6':
+            cout <<"\nSaliendo...";
+            break;
+
+        default:
+            cout<<"\nOpcion no valida!";
             break;
         }
-    default:
-        cout<<"\nOpcion no valida, saliendo...";
-        break;
-    PAUSE;
-    opcion='0';
-    }
+        cout << endl;
+        PAUSE;
+    }while(opcion!='6');
 
-    }
 
     return 0;
 
