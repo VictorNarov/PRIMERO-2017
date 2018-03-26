@@ -1,5 +1,6 @@
 #ifndef CLASIFICACION.H
 #define CLASIFICACION.H
+#include <cstdlib>
 
 using namespace std;
 
@@ -20,6 +21,9 @@ public:
 		void eliminar(int i);
 		Corredor consultar(int i);
 		bool vacio();
-		int numcorredores();
+		int numcorredores(){return corredores;}
+		void OrdenacionBurbuja();
 };
+
+
 #endif // CLASIFICACION

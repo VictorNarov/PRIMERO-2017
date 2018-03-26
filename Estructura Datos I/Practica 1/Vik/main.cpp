@@ -33,7 +33,8 @@ int main()
                 CLS;
                 cadena consulta;
                 cout<<"Introduce pais a consultar (Todos: *) -> ";
-                gets(consulta);
+                cin>>consulta;
+
                 Huelva.consultar(consulta);
                 break;
             }
@@ -41,26 +42,31 @@ int main()
             case '2':
             {
                 CLS;
+                cin.clear();
                 cadena pais, nombre, apellido;
                 int dorsal;
                 Atleta Ainsertar;
 
                 cout << "Introduce dorsal -> ";
                 cin >> dorsal;
-                cin.get();
-                cout << "\nIntroduce pais ->";
-                gets(pais);
+
+
+                cout << "\nIntroduce pais -> ";
+                cin >> pais;
                 cout <<"\nIntroduce nombre -> ";
-                gets(nombre);
+                cin >> nombre;
                 cout <<"\nIntroduce apellidos -> ";
-                gets(apellido);
+                cin>>apellido;
 
                 Ainsertar.dorsal = dorsal;
                 strcpy(Ainsertar.apellidos,apellido);
                 strcpy(Ainsertar.nombre,nombre);
                 strcpy(Ainsertar.pais,pais);
+                Ainsertar.marca=0;
+                Ainsertar.posicion=0;
 
                 Huelva.insertar(Ainsertar);
+
                 break;
             }
             case '3':
@@ -72,6 +78,23 @@ int main()
                     Huelva.modificar(dorsal);
                     break;
                 }
+
+            case '4':
+                {
+                    int dorsal;
+                    CLS;
+                    cout << "\nIntroduce dorsal a eliminar -> ";
+                    cin >> dorsal;
+                    cin.get();
+                    Huelva.eliminar(dorsal);
+                    break;
+                }
+            case '5':
+                {
+                    CLS;
+                    Huelva.mostrarClasificacion();
+                    break;
+                }
             case '6':
                 cout <<"\nSaliendo...";
                 break;
@@ -80,7 +103,7 @@ int main()
                 cout<<"\nOpcion no valida!";
                 break;
         }
-        cout << endl;
+        cout <<endl<<endl;
         PAUSE;
     }while(opcion!='6');
 
