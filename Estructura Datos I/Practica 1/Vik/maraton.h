@@ -16,7 +16,8 @@ struct Atleta {
 	cadena apellidos;
 	int marca;
 	int posicion;
-};
+
+	};
 
 class Maraton {
 		fstream fich; //fichero primera fase
@@ -33,6 +34,7 @@ public:
 		void eliminar(int dor);
 		void mostrarClasificacion();
 };
+
 
 
 #endif // MARATON

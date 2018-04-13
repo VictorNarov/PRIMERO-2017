@@ -4,14 +4,15 @@
 #include <iostream>
 #include <string.h>
 #include <cstdlib>
-
+#include <ctime>//srand
 //metodo modificar poder cambiar un pais
 using namespace std;
 typedef char cadena[TAM_CADENA];
 
-int marcas(int s)
+int marcas(int semilla)
 {
-    return (rand()%s + 7000);
+    srand(semilla);
+    return (rand()%7000+3000);
 }
 void marcaDisplay(int marca, int &h, int &m, int &s)
 {
@@ -247,7 +248,7 @@ void Maraton::mostrarClasificacion()
         fichero.read((char *)&aTemp, sizeof(Atleta));
         cTemp.dorsal = aTemp.dorsal;
         cTemp.indice = i+1;//Para mostrarlo igual que en inscripciones
-        cTemp.marca = marcas(cTemp.dorsal);
+        cTemp.marca = marcas(rand()%5000);
         clasi.anadircorredor(cTemp);
 
         aTemp.marca = cTemp.marca;//guardar marca en fichero
