@@ -36,7 +36,7 @@ void creacion(string entrada, string salida)
 }
 
 // Ejercicio 2
-// Salida -> 1<=e<=longitud();
+// Salida -> 1<=i<=longitud();
 
 int Cola::observar(int i)
 {
