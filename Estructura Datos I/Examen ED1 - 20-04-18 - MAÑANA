@@ -1,0 +1,56 @@
+// Autor: Francisco Jesús Beltrán Moreno
+// Ejercicio 1
+
+void creacion(string entrada, string salida)
+{
+    struct elemento
+    {
+        int valor;
+        int posicion;
+    };
+
+    ifstream f_entrada;
+    ofstream f_salida;
+
+    f_entrada.open("entrada", ios::binary);
+    f_salida.open("salida", ios::binary);
+
+    if(!f_entrada.fail())
+    {
+        while(!f_entrada.eof())
+        {
+            elemento temp;
+            int posicion_f;
+
+            f_entrada.read((char*)&temp, sizeof(elemento));
+            posicion_f = temp.posicion + 1;
+
+            f_salida.seekp(posicion_f, ios::beg);
+            f_salida.write((char*)&temp, sizeof(elemento));
+        }
+    }
+
+    f_entrada.close();
+    f_salida.close();
+    
+}
+
+// Ejercicio 2
+
+// Salida -> 1<=e<=longitud();
+
+int Cola::observar(int i)
+{
+    int elemento;
+
+    for(int j=0; j<longitud(); j++)
+    {
+        if(j == i-1)
+            elemento = primero();
+
+        encolar(primero());
+        desencolar();
+    }
+
+    return elemento;
+}
