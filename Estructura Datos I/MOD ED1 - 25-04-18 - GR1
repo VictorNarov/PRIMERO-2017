@@ -1,0 +1,105 @@
+// Autor: Fco. Jesús Beltrán Moreno
+// Modificacion ED1 - Grupo 1 (12:30-14:30)
+
+// Metodo 1 - (0.25)
+/* Mostrar los Atletas con mejor y peor Marca */
+
+void Maraton::Mejor_Peor_Atleta()
+{
+  /* MARATON_REALIZADO, ATRIBUTO PRIVADO DE LA CLASE MARATON,
+  POR DEFECTO EN FALSE, SE ACTIVA AL LLAMAR AL METODO MOSTRAR CLASIFICACION */
+
+    Atleta Atleta_temp, Atleta_menor, Atleta_mayor;
+    bool encontrado_menor=false, encontrado_mayor=false;
+
+    if(maraton_realizado)
+    {
+        fichero.seekg(sizeof(int), ios::beg);
+        fichero.read((char*)&Atleta_temp, sizeof(Atleta));
+
+        while(!fichero.eof() && (!encontrado_menor || !encontrado_mayor))
+        {
+            if(Atleta_temp.posicion==1)
+            {
+                Atleta_menor = Atleta_temp;
+                encontrado_menor=true;
+            }
+
+            if(Atleta_temp.posicion==numAtletas)
+            {
+                Atleta_mayor = Atleta_temp;
+                encontrado_mayor=true;
+            }
+
+            fichero.read((char*)&Atleta_temp, sizeof(Atleta));
+        }
+
+        cout << "Atleta con Marca menor: " << endl;
+        cout << "Dorsal: " << Atleta_menor.dorsal << endl;
+        cout << "Pais: " << Atleta_menor.pais << endl;
+        cout << "Nombre: " << Atleta_menor.nombre << endl;
+        cout << "Apellidos: " << Atleta_menor.apellidos << endl;
+        cout << "Marca: ";
+        Timeright(Atleta_menor.marca);
+
+        cout << endl;
+        cout << "Atleta con Marca Mayor: " << endl;
+        cout << "Dorsal: " << Atleta_mayor.dorsal << endl;
+        cout << "Pais: " << Atleta_mayor.pais << endl;
+        cout << "Nombre: " << Atleta_mayor.nombre << endl;
+        cout << "Apellidos: " << Atleta_mayor.apellidos << endl;
+        cout << "Marca: ";
+        Timeright(Atleta_mayor.marca);
+    }
+    else
+        cout << "La maraton aun no se ha realizado." << endl;
+}
+
+// Metodo 2 - (0.75)
+/* Creacion de archivo histórico, que todos los Atletas que vamos eliminando,
+no se puede sobreescribir el fichero. */
+
+/* Previamente hemos tenido que poner esto en nuestro Constructor:
+
+  historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
+  if(historico.fail())
+  {
+    historico.close();
+    historico.clear();
+    historico.open("Historico.dat", ios::binary | ios::out);
+    historico.close();
+    historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
+  }
+
+/* En nuestro Destructor:
+  historico.close(); */
+
+// Ahora en nuestro Eliminar, después de la declaracion de las variables, pero antes de entrar en los bucles:
+  historico.close();
+  historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
+
+// A continuación, después de leer el Atleta que queremos eliminar:
+  historico.write((char*)&Atleta_Temp, sizeof(Atleta)); //
+  
+/* NOTA IMPORTANTE: EL FICHERO SE ABRE COMO IOS::APP, ES DECIR,
+SIEMPRE ESCRIBIMOS AL FINAL, NO HAY QUE HACER DESPLAZAMIENTO */
+
+void Maraton::Historico()
+{
+    Atleta Temp;
+
+    historico.close();
+    historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
+
+    historico.read((char*)&Temp, sizeof(Atleta));
+    while(!historico.eof())
+    {
+        cout << "Dorsal: " << Temp.dorsal << endl;
+        cout << "Pais: " << Temp.pais << endl;
+        cout << "Nombre: " << Temp.nombre << endl;
+        cout << "Apellidos: " << Temp.apellidos << endl;
+        cout << endl;
+
+        historico.read((char*)&Temp, sizeof(Atleta));
+    }
+}
