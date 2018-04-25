@@ -1,0 +1,115 @@
+// Autor: Fco. Jesús Beltrán Moreno
+// Modificacion ED1 - Grupo 2 (19:00-21:00)
+
+// Metodo 1 - (0.25)
+/* Consultar Atleta pasando el dorsal por parámetro, si la maraton se ha realizado,
+mostrar todos los datos, sino, solo su Dorsal, Pais, Nombre y Apellidos. */
+
+void Maraton::consultar_atleta(int dor)
+{
+  /* MARATON_REALIZADO, ATRIBUTO PRIVADO DE LA CLASE MARATON,
+  POR DEFECTO EN FALSE, SE ACTIVA AL LLAMAR AL METODO MOSTRAR CLASIFICACION */
+
+    bool encontrado=false;
+    Atleta Atleta_Temporal;
+    int i=0;
+
+    fichero.seekg(sizeof(int), ios::beg);
+
+    while(i<numAtletas && !encontrado)
+    {
+        fichero.read((char*)&Atleta_Temporal, sizeof(Atleta));
+
+        if(Atleta_Temporal.dorsal == dor)
+        {
+            encontrado=true;
+            if(maraton_realizado)
+            {
+                cout << "Posicion: " << Atleta_Temporal.posicion << endl;
+                cout << "Dorsal: " << Atleta_Temporal.dorsal << endl;
+                cout << "Pais: " << Atleta_Temporal.pais << endl;
+                cout << "Nombre: " << Atleta_Temporal.nombre << endl;
+                cout << "Apellidos: " << Atleta_Temporal.apellidos << endl;
+                cout << "Marca: ";
+                Timeright(Atleta_Temporal.marca);
+                cout << endl;
+            }
+            else
+            {
+                cout << "Dorsal: " << Atleta_Temporal.dorsal << endl;
+                cout << "Pais: " << Atleta_Temporal.pais << endl;
+                cout << "Nombre: " << Atleta_Temporal.nombre << endl;
+                cout << "Apellidos: " << Atleta_Temporal.apellidos << endl;
+            }
+        }
+        else
+            i++;
+    }
+}
+
+// Metodo 2 - (0.25)
+/* Creacion de archivo histórico, que guarde todas las modificaciones de los Atletas,
+no se puede sobreescribir el fichero. */
+
+/* Previamente hemos tenido que poner esto en nuestro Constructor:
+
+  Historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
+  if(Historico.fail())
+  {
+    Historico.close();
+    Historico.clear();
+    Historico.open("Historico.dat", ios::binary | ios::out);
+    Historico.close();
+    Historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
+  }
+
+/* En nuestro Destructor:
+  Historico.close(); */
+
+// Ahora en nuestro Modificar, después de la declaracion de las variables, pero antes de entrar en los bucles:
+  
+  Historico.close();
+  Historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
+
+// A continuación, después de leer el Atleta que queremos modificar:
+  Historico.write((char*)&Atleta_Temp, sizeof(Atleta)); //
+
+// Después de modificar el Atleta, lo guardamos también:
+  Historico.write((char*)&Atleta_Temp, sizeof(Atleta));
+  
+  /* NOTA IMPORTANTE: EL FICHERO SE ABRE COMO IOS::APP, ES DECIR,
+  SIEMPRE ESCRIBIMOS AL FINAL, NO HAY QUE HACER DESPLAZAMIENTO */
+
+void Maraton::historico()
+{
+    Atleta Temp;
+
+    Historico.close();
+    Historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
+
+    Historico.read((char*)&Temp, sizeof(Atleta));
+    while(!Historico.eof())
+    {
+        cout << "Antes de Modificar: " << endl;
+        cout << "Dorsal: " << Temp.dorsal << endl;
+        cout << "Pais: " << Temp.pais << endl;
+        cout << "Nombre: " << Temp.nombre << endl;
+        cout << "Apellidos: " << Temp.apellidos << endl;
+        cout << "Marca: " << Temp.marca << endl;
+        cout << "Posicion: " << Temp.posicion << endl;
+        cout << endl;
+
+        Historico.read((char*)&Temp, sizeof(Atleta));
+
+        cout << "Despues de Modificar: " << endl;
+        cout << "Dorsal: " << Temp.dorsal << endl;
+        cout << "Pais: " << Temp.pais << endl;
+        cout << "Nombre: " << Temp.nombre << endl;
+        cout << "Apellidos: " << Temp.apellidos << endl;
+        cout << "Marca: " << Temp.marca << endl;
+        cout << "Posicion: " << Temp.posicion << endl;
+        cout << endl;
+
+        Historico.read((char*)&Temp, sizeof(Atleta));
+    }
+}
