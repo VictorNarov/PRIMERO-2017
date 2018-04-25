@@ -67,7 +67,6 @@ no se puede sobreescribir el fichero. */
   Historico.close(); */
 
 // Ahora en nuestro Modificar, después de la declaracion de las variables, pero antes de entrar en los bucles:
-  
   Historico.close();
   Historico.open("Historico.dat", ios::binary | ios::in | ios::out | ios::app);
 
@@ -77,8 +76,8 @@ no se puede sobreescribir el fichero. */
 // Después de modificar el Atleta, lo guardamos también:
   Historico.write((char*)&Atleta_Temp, sizeof(Atleta));
   
-  /* NOTA IMPORTANTE: EL FICHERO SE ABRE COMO IOS::APP, ES DECIR,
-  SIEMPRE ESCRIBIMOS AL FINAL, NO HAY QUE HACER DESPLAZAMIENTO */
+/* NOTA IMPORTANTE: EL FICHERO SE ABRE COMO IOS::APP, ES DECIR,
+SIEMPRE ESCRIBIMOS AL FINAL, NO HAY QUE HACER DESPLAZAMIENTO */
 
 void Maraton::historico()
 {
