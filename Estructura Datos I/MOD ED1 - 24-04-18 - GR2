@@ -47,7 +47,7 @@ void Maraton::consultar_atleta(int dor)
     }
 }
 
-// Metodo 2 - (0.25)
+// Metodo 2 - (0.75)
 /* Creacion de archivo histórico, que guarde todas las modificaciones de los Atletas,
 no se puede sobreescribir el fichero. */
 
