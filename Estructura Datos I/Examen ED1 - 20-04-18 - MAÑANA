@@ -14,25 +14,29 @@ void creacion(string entrada, string salida)
 
     f_entrada.open("entrada", ios::binary);
     f_salida.open("salida", ios::binary);
-
+        
     if(!f_entrada.fail())
     {
+        f_entrada.read((char*)&temp, sizeof(elemento));
         while(!f_entrada.eof())
         {
             elemento temp;
             int posicion_f;
-
-            f_entrada.read((char*)&temp, sizeof(elemento));
+            
             posicion_f = temp.posicion + 1;
 
             f_salida.seekp(posicion_f, ios::beg);
-            f_salida.write((char*)&temp, sizeof(elemento));
+            f_salida.write((char*)&temp.valor, sizeof(int));
+            f_entrada.read((char*)&temp, sizeof(elemento));
         }
+        f_entrada.close();
+        f_salida.close();
     }
-
-    f_entrada.close();
-    f_salida.close();
-    
+    else
+    {
+        f_entrada.close();
+        f_salida.close();
+    }
 }
 
 // Ejercicio 2
