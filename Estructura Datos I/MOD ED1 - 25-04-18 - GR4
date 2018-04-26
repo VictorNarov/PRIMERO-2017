@@ -1,0 +1,109 @@
+// Autor: Fco. Jesús Beltrán Moreno
+// Modificacion ED1 - Grupo 2 (19:00-21:00)
+
+// Metodo 1 - (0.25)
+/* Mostrar la Marca Media una vez realizada la maraton, si no se ha realizado, indicarlo */
+
+void Maraton::Marca_media()
+{
+  /* MARATON_REALIZADO, ATRIBUTO PRIVADO DE LA CLASE MARATON,
+  POR DEFECTO EN FALSE, SE ACTIVA AL LLAMAR AL METODO MOSTRAR CLASIFICACION */
+
+    Atleta Atleta_temp;
+    int Marca_media = 0;
+
+    if(maraton_realizado)
+    {
+        fichero.seekg(sizeof(int), ios::beg);
+        fichero.read((char*)&Atleta_temp, sizeof(Atleta));
+
+        for(int i=0; i<numAtletas; i++)
+        {
+            Marca_media += Atleta_temp.marca;
+            fichero.read((char*)&Atleta_temp, sizeof(Atleta));
+        }
+
+        Marca_media = (float)Marca_media/numAtletas;
+        cout << "La Marca media es ";
+        Timeright(Marca_media);
+    }
+    else
+        cout << "La maraton aun no se ha realizado." << endl;
+
+    fichero.clear();
+    fichero.seekg(0, ios::beg);
+}
+
+// Metodo 2 - (0.75)
+/* Modificacion de programa, para que si cuando lanzamos el programa, nuestro fichero destino,
+YA existe, entonces deberemos trabajar con ese fichero */
+
+Maraton::Maraton(char FicheroOrigen[], char FicheroDestino[])
+{
+    maraton_realizado = false;
+    numAtletas = 0;
+    fich.open(FicheroOrigen, ios::in | ios::out | ios::binary);
+
+    if(fich.fail())
+    {
+        fich.close();
+        fich.clear();
+        fichero.open(FicheroDestino, ios::out | ios::binary);
+
+        if(!fichero.fail())
+        {
+            fichero.close();
+            fichero.open(FicheroDestino, ios::in | ios::out | ios::binary);
+        }
+        else
+        {
+            fichero.close();
+            fichero.clear();
+            fichero.open(FicheroDestino, ios::out | ios::binary);
+            fichero.close();
+            fichero.open(FicheroDestino, ios::in | ios::out | ios::binary);
+            fichero.seekp(0, ios::beg);
+            fichero.write((char *)&numAtletas, sizeof(int));
+        }
+    }
+    else
+    {
+        int numAtletasPais=0;
+        Atleta Temp;
+
+        fichero.open(FicheroDestino, ios::in | ios::out | ios::binary);
+
+        if(!fichero.fail())
+        {
+            int numeroAtletas_fichero;
+            fichero.close();
+            fichero.open(FicheroDestino, ios::in | ios::out | ios::binary);
+            fichero.read((char*)&numeroAtletas_fichero, sizeof(int));
+            numAtletas = numeroAtletas_fichero;
+        }
+        else
+        {
+            fichero.close();
+            fichero.clear();
+            fichero.open(FicheroDestino, ios::out | ios::binary);
+            fichero.close();
+            fichero.open(FicheroDestino, ios::in | ios::out | ios::binary);
+
+            fichero.seekp(sizeof(int), ios::beg);
+            fich.read((char *)&numAtletasPais, sizeof(int));
+
+            while(!fich.eof())
+            {
+                for(int i=0; i<numAtletasPais; i++)
+                {
+                    fich.read((char *)&Temp, sizeof(Atleta));
+                    fichero.write((char *)&Temp, sizeof(Atleta));
+                    numAtletas++;
+                }
+                fich.read((char *)&numAtletasPais, sizeof(int));
+            }
+            fichero.seekp(0, ios::beg);
+            fichero.write((char *)&numAtletas, sizeof(int));
+        }
+    }
+}
